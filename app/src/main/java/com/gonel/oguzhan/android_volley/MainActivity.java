@@ -1,5 +1,6 @@
 package com.gonel.oguzhan.android_volley;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
         Log.d("clickFunction", "Button got clicked");
 
         sendRequestAndPrintResponse();
+    }
+
+    public void openImageButtonFunction(View view){
+
+        Log.d("openImageButtonFunc", "Open Image Button got clicked");
+
+        Intent intent = new Intent(MainActivity.this, ImageActivity.class);
+        startActivity(intent);
     }
 
     private void sendRequestAndPrintResponse(){
