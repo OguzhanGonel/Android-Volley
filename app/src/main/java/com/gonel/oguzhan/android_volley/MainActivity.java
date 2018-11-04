@@ -10,6 +10,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -22,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue mRequestQueue;
 
     private StringRequest stringRequest;
+
+    private DiskBasedCache mCache;
+    private com.android.volley.Network mNetwork;
 
     private String url = "http://www.mocky.io/v2/5bdf32a33100007a009e3ffc";
     @Override
@@ -39,7 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void sendRequestAndPrintResponse(){
 
-        mRequestQueue = Volley.newRequestQueue(this);
+        // Uses the Request Queue provided by Volley
+        //mRequestQueue = Volley.newRequestQueue(this);
+
+        // Making my own Request Queue
+        //mCache = new DiskBasedCache(getCacheDir(), 4*1024*1024);
+        //mNetwork = new BasicNetwork(new HurlStack());
+        //mRequestQueue = new RequestQueue(mCache, mNetwork);
+        //mRequestQueue.start();
+
+        mRequestQueue = VolleySingletonClass.getInstance(this.getApplicationContext()).getRequestQueue(this.getApplicationContext());
 
         stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
